@@ -1,0 +1,82 @@
+<div class="box">
+  <div class="cd-main-content">
+    <div class="container" style="padding-top:20px;">
+      <div class="thumbnail">
+        <div class="margin" style="margin:15px">
+          <div class="cafeinfo" style="margin-bottom:15px;">
+              <div class="controlgroup" style="float:right;">
+                <a href="/cafes/edit/<%= @cafes.name %>">편집</a>
+                <a href="#" style="border-left:none;">역링크</a>
+              </div>
+            <img src="/images/coffeebean.svg" style="width:23px; height:23px; margin-right:5px;">
+            <a href="/cafes/<%= @cafes.id %>" style="font-size:30px; display:inline; font-weight:bold; text-decoration:none; color:black"><%= @cafes.name %></a><p style="font-size:30px; display:inline; font-weight:bold; text-decoration:none; color:black"> (문서 역사)</p>
+            
+            <h3 style="margin-top:15px"><%= @cafes.address %></h3>
+          </div>
+          <hr>
+          <div class="basicinfo">
+            <div class="container">
+              <form action="/cafes/<%= @cafes.name %>/differ" method="GET" class="controlgroup" style="margin-bottom:15px;">
+                <input type="hidden" id="old_ver" value="" name="old_ver">
+                <input type="hidden" id="new_ver" value="" name="new_ver">
+                <input type="submit" value="선택한 버전 비교하기">
+              </form><br>
+              <% @cafes.versions.reverse.each do |v| %>
+                  <p style="display:inline"><b>version<%= v.index+1 %></b> <%= v.created_at %></p>
+                  <a id="version<%= v.index+1 %>" href="/cafes/<%= @cafes.name %>/history/<%= v.index+1 %>">보기</a>
+                  <input type="radio" id="old_ver<%= v.index+1 %>" class="old_ver" name="old_ver"> <input type="radio" id="new_ver<%= v.index+1 %>" class="new_ver" name="new_ver">
+                  <% if v.whodunnit && v.whodunnit != 'Guest' %>
+                  <% user = User.find_by_id(v.whodunnit) %>
+                  <% if user %>
+                  (수정된 개수) <%= user.username %>
+                    <% end %>
+                  <% else %>
+                  (수정된 개수) <%= v.ip %>
+                  <% end %>
+                  <br>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 다음에 javascript로 첫번째요소 a tag는 /cafe/?로 바꾸기 -->
+
+<script>
+  // $(".controlgroup").controlgroup();
+
+  var last_version = document.getElementById("version<%= @cafes.versions.last.index+1 %>").href;
+
+  if(last_version == "https://cafewiki-renewal-jeongki-son.c9users.io/cafes/<%= @cafes.name %>/history/<%= @cafes.versions.last.index+1 %>") //production때 바꿔야 함
+  $("#version<%= @cafes.versions.last.index+1 %>").attr("href", "https://cafewiki-renewal-jeongki-son.c9users.io/cafes/<%= @cafes.name %>")
+  
+  $(".new_ver").click(function() {
+    var old_ver_erase_num = this.id.substr(7); // or alert($(this).attr('id'));
+    var latest_ver = <%= @cafes.versions.last.index+1 %>;
+    $("#new_ver").val(old_ver_erase_num);
+    for (var i=1;i<=latest_ver;i++)
+    {
+      $("#old_ver"+i).css("visibility","visible");
+    }
+    for(var i=old_ver_erase_num;i<=latest_ver;i++)
+    {
+      $("#old_ver"+i).css("visibility","hidden");
+    }
+  });
+  
+  $(".old_ver").click(function() {
+    var new_ver_erase_num = this.id.substr(7); // or alert($(this).attr('id'));
+    var latest_ver = <%= @cafes.versions.last.index+1 %>;
+    $("#old_ver").val(new_ver_erase_num);
+    for (var i=1;i<=latest_ver;i++)
+    {
+      $("#new_ver"+i).css("visibility","visible");
+    }
+    for(var i=1;i<=new_ver_erase_num;i++)
+    {
+      $("#new_ver"+i).css("visibility","hidden");
+    }
+  });
+</script>

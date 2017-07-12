@@ -1,0 +1,23 @@
+<div class="cd-main-content box">
+  <div id="map" class="column" style="width:75%"></div>
+  <div id="mapinfo" class="sidebar" style="background: white;">
+    <div id="overlay_image"></div>
+    <div class="mapinfo_bar" style="background:#502821;">
+      <div class="mapinfo_bar_content" style="padding:15px;">
+        <h3 id="mapinfo_bar_content_title" style="color:white; font-size:25px"></h3>
+      </div>
+    </div>
+    <div id="mapinfobox" style="overflow-y:scroll; z-index:3; height:85%"></div>
+  </div>
+</div>
+<div class="cd-overlay"></div>
+
+<div id="latitude" style="display: none;"></div>
+<div id="longitude" style="display: none;"></div>
+<div id="address" style="display: none;"></div>
+<div id="query_latitude" style="display: none;"><%= @query_latitude %></div>
+<div id="query_longitude" style="display: none;"><%= @query_longitude %></div>
+<div id="query_zoom" style="display: none;"><%= @query_zoom %></div>
+<%= javascript_include_tag 'markerclusterer' %>
+<%= javascript_include_tag 'infobox' %>
+<%= javascript_include_tag 'map_google' %>

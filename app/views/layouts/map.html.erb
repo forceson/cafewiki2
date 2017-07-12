@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cafewiki | 내가 좋아하는 나만의 카페</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUcidkT6N7A3VZMbKoBlcDdqkW4pt-cf0"
+    async defer>
+  </script>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<header class="cd-main-header">
+  <a class="cd-logo" href="#0"><%= image_tag("cafewiki.png", size: "112x44", alt: "logo") %></a>
+  	<ul class="cd-header-buttons">
+  		<li><a class="cd-search-trigger" href="#cd-search" style="color: #fff; text-decoration: none;">Search<span></span></a></li>
+  		<li><a class="cd-nav-trigger" href="#cd-primary-nav" style="color: #fff; text-decoration: none;">Menu<span></span></a></li>
+	  </ul> <!-- cd-header-buttons -->
+	<nav class="cd-nav" style="display:block;">
+        <ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
+        	<li class="has-children">
+        		<a href="http://codyhouse.co/?p=409">필터링</a>
+        		<ul class="cd-secondary-nav is-hidden">
+        			<li class="go-back"><a href="#0">Menu</a></li>
+        			<%= search_form_for(@q, url: "/map/google", method: :get, class: "cafe_search is-hidden", format: :json) do |f| %>
+        			<li class="see-all"><a><div class="actions"><%= f.submit "검색하기", style:"background:none; border:none" %></div></a></li>
+          			<li class="has-children">
+          				<p>아메리카노 가격</p>
+                    <div class="field">
+                        <%= f.label :americano_gteq, "아메리카노" %><br>
+                        <%= f.label :americano_gteq, "(가장 작은 사이즈를 기준으로 합니다)" %><br>
+                        <div class="input-group" style="width:80%">
+                        <%= f.text_field :americano_gteq, value: "0", class:"form-control" %><span class="input-group-addon" id="basic-addon1">~</span><%= f.text_field :americano_lteq, value: "99999", class:"form-control" %>
+                        </div>
+                    </div>
+          			</li>
+          
+          			<li class="has-children">
+          				<p>매장 크기</p>
+                    <div class="field">
+                        <%= f.radio_button :size_eq, "", checked: true %> <%= f.label '전체보기' %>
+                        <%= f.radio_button :size_eq, "좁음" %> <%= f.label '좁음' %>
+                        <%= f.radio_button :size_eq, "중간" %> <%= f.label '중간' %>
+                        <%= f.radio_button :size_eq, "넓음" %> <%= f.label '넓음' %>
+          					</div>
+          				
+          				<p>화장실</p>
+                    <div class="field">
+                        <%= f.radio_button :toilet_eq, "", checked: true %> <%= f.label '상관없음' %>
+                        <%= f.radio_button :toilet_eq, "내부위치" %> <%= f.label '내부' %>
+                        <%= f.radio_button :toilet_eq, "외부위치" %> <%= f.label '외부' %>
+          					</div>
+          			</li>
+          
+          			<li class="has-children">
+          				<p>24시간</p>
+                    <div class="field">
+                        <%= f.radio_button :allnight_eq, "", checked: true %> <%= f.label '상관없음' %>
+                        <%= f.radio_button :allnight_eq, "1" %> <%= f.label 'O' %>
+                        <%= f.radio_button :allnight_eq, "0" %> <%= f.label 'X' %>
+          					</div>
+
+          				<p>주차장</p>
+                    <div class="field">
+                        <%= f.radio_button :parking_eq, "", checked: true %> <%= f.label '상관없음' %>
+                        <%= f.radio_button :parking_eq, "1" %> <%= f.label '있음' %>
+                        <%= f.radio_button :parking_eq, "0" %> <%= f.label '없음' %>
+          					</div>
+          			</li>
+          
+          			<li class="has-children">
+          				<p>매장 층수</p>
+                    <div class="field">
+                        <%= f.radio_button :floor_eq, "", checked: true %> <%= f.label '상관없음' %>
+                        <%= f.radio_button :floor_eq, "단층" %> <%= f.label '단층' %>
+                        <%= f.radio_button :floor_eq, "복층" %> <%= f.label '복층' %>
+          					</div>
+          				<div class="locationinfo">
+          				  <%= f.hidden_field :lat, :value => @lat, name: "lat" %>
+                    <%= f.hidden_field :lng, :value => @lng, name: "lng" %>
+                    <%= f.hidden_field :zoom, :value => @zoom, name: "zoom" %>
+          				</div>
+          			</li>
+        		</ul>
+        	</li>
+          <% end %>
+    	
+    
+    	<li class="has-children">
+    		<a href="#">회원정보</a>
+    		  <% if user_signed_in? %>
+       			<ul class="cd-nav-icons is-hidden" style="width: 100%;">
+       			  <li class="go-back"><a href="#0">Menu</a></li>
+       			  <div style="display:block; margin-right:auto; margin-left:auto; width:150px; height:30px;">
+       			  <button class="btn">
+      		 			<%= link_to "로그아웃", destroy_user_session_path, method: :delete, data: { confirm: "정말로??"} %>
+      		 		</button>
+      		 		</div>
+            </ul>
+      		<% else %>
+        		<ul class="cd-nav-icons is-hidden login_box" style="width: 438px;">
+        			<li class="go-back"><a href="#0">Menu</a></li>
+        			<div class="login_box_title"><h4>로그인<br>(<%= @remote_ip %>)</h4></div>
+        			<div class="login_box_form">
+        			  <%= form_for(:user, :url => session_path(:user)) do |f| %>
+                  <div class="form-group">
+                    <%= f.text_field :email, :placeholder => "Email", class: "form-control" %> 
+                  </div>
+                  <div class="form-group">
+                    <%= f.password_field :password, :placeholder => "Password", class: "form-control"  %>
+                  </div>
+                  <div class="login_box_remember">
+                    <%= f.check_box :remember_me %> <%= f.label :"자동 로그인", style: "text-align:center" %>
+                  </div>
+                  <div class="row" style="margin-right:0px; margin-left:0px;">
+                    <div class="col-md-6 col-xs-6">
+                      <a href="/users/sign_up" class="login_box_btn" style="color:white;">회원가입</a>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                      <%= f.submit '로그인', class: "login_box_btn" %>
+                    </div>
+                  </div>
+                  <a href="#">비밀번호를 잊으셨나요?</a>
+                <% end %>
+              </div>
+        		</ul>
+    	</li>
+    	    <% end %>
+    </ul> <!-- primary-nav -->
+  </nav> <!-- cd-nav -->
+  <div id="cd-search" class="cd-search">
+		<%= search_form_for(@q, url: "/home/google", method: :get) do |f| %>
+      <%= f.search_field :name_cont, id:"tags", placeholder: "카페의 이름을 입력해주세요..." %>
+      <div class="locationinfo">
+			  <%= f.hidden_field :lat, :value => @lat, name: "lat", id: "s_lat" %>
+        <%= f.hidden_field :lng, :value => @lng, name: "lng", id: "s_lng" %>
+        <%= f.hidden_field :zoom, :value => @zoom, name: "zoom", id: "s_zoom" %>
+			</div>
+			<div class="cd-search-btn"><%= f.submit "검색하기" %></div>
+		<% end %>
+	</div>
+</header>
+      
+<body>
+<div class="wrapper">
+<%= yield %>
+</div>
+
+</body>
+</html>

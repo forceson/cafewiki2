@@ -1,0 +1,52 @@
+<div class="box">
+  <div class="cd-main-content">
+    <div class="container" style="padding-top:20px;">
+      <div class="thumbnail">
+        <div class="margin" style="margin:15px">
+          <div class="cafeinfo" style="margin-bottom:15px;">
+              <div class="controlgroup" style="float:right;">
+                <a href="/home/edit/<%= @cafes.name %>">편집</a>
+                <a href="/home/cafe/<%= @cafes.name %>/history_list" style="border-left:none;">역사</a>
+              </div>
+            <img src="/images/coffeebean.svg" style="width:23px; height:23px; margin-right:5px;">
+            <a href="/home/cafe/<%= @cafes.id %>" style="font-size:30px; display:inline; font-weight:bold; text-decoration:none; color:black"><%= @cafes.name %></a><p style="font-size:30px; display:inline; font-weight:bold; text-decoration:none; color:black"> (ver<%= @versions.reify.ver %>)</p>
+            
+            <h3 style="margin-top:15px"><%= @cafes.address %></h3>
+          </div>
+          <hr>
+          <div class="basicinfo">
+            <h2 style="font-size:25px; font-weight:bold; margin-bottom:8px;"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size:23px"></span> 기본 정보</h2>
+            <label style="width:120px; float:left;">전화번호</label><p style="display:inline;"><%= @versions.reify.phone %></p><br>
+            <label style="width:120px; float:left;">아메리카노 가격</label><p style="display:inline;"><%= @versions.reify.americano %>원</p><br>
+            <label style="width:120px; float:left;">매장 크기</label><p style="display:inline;"><%= @versions.reify.size %></p><br>
+            <label style="width:120px; float:left;">화장실</label><p style="display:inline;"><%= @versions.reify.toilet %></p><br>
+            <label style="width:120px; float:left;">매장 층수</label><p style="display:inline;"><%= @versions.reify.floor %></p><br>
+            <label class="checkbox" id="parking" style="width:120px; float:left;">주차장</label><p id="parking_content" style="display:none;"><%= @versions.reify.parking %></p>
+            <label class="checkbox" id="allnight" style="width:120px; float:left;">24시간</label><p id="allnight_content" style="display:none;"><%= @versions.reify.allnight %></p>
+          </div>
+          <hr>
+          <p><%= raw @versions.reify.content %></p>
+          <hr>
+          <p>이 문서는 <%= @versions.reify.updated_at %>에 마지막으로 수정되었습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".controlgroup").controlgroup();
+  
+ var parking_content = document.getElementById("parking_content").innerHTML;
+  if(parking_content == "1")
+  {
+    $("#parking").removeClass("checkbox");
+    $("#parking_content").after("<br>");
+  }
+  var allnight_content = document.getElementById("allnight_content").innerHTML;
+  if(allnight_content == "1")
+  {
+    $("#allnight").removeClass("checkbox");
+    $("#allnight_content").after("<br>");
+  }
+</script>

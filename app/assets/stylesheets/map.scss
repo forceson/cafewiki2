@@ -1,0 +1,176 @@
+// Place all the styles related to the map controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #map {
+    height: 100%;
+  }
+  #current{
+    padding-top: 25px;
+  }
+  #map_canvas {background: transparent url(http://ressio.github.io/lazy-load-xt/dist/loading.gif) no-repeat center center;}
+  /*.gm-style-iw + div {display: none;} 
+  */
+  
+  .ci_list {
+    list-style: none;
+    height:100px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#ddd;
+    margin: 3px;
+  }
+  
+  .ci_list:hover {
+    background:#ccc;
+  }
+  .ci_box {
+    height:100%;
+    margin:10px;
+    padding-right:-10px;
+  }
+  
+  .ci_box > h2{
+    font-size:25px;
+    color:#502821;
+    margin-bottom: 8px;
+  }
+  
+  .ci_box > label{
+    font-size:18px;
+    color:black;
+    margin-bottom: 8px;
+    width:150px;
+    cursor:pointer;
+  }
+  
+  .ci_box > h3{
+    font-size:18px;
+    color:black;
+    margin-bottom: 8px;
+    display:inline;
+  }
+  
+  .ci_box > span{
+    font-size:15px;
+    color:grey;
+    margin-bottom: 8px;
+    margin-right:6px;
+  }
+  
+  .checkbox
+  {
+    display:none;
+  }
+  
+  .infobox-wrapper {
+    display:none;
+  }
+  
+  #infobox {
+      border:2px solid black;
+      margin-top: 8px;
+      background:#333;
+      color:#FFF;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:12px;
+      padding: .5em 1em;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      border-radius: 2px;
+      text-shadow:0 -1px #000000;
+      -webkit-box-shadow: 0 0  8px #000;
+      box-shadow: 0 0 8px #000;
+      text-align:center;
+  }
+  #iw-container {
+      width:300px;
+      height:100%;
+      margin: 15px;
+  }
+  
+  #iw-container .iw-detail > a:hover {
+    background:#c9cbc4;
+  }
+  
+  #iw-container .iw-detail > a {
+    float:right;
+    color:black;
+    margin-top:20px;
+    margin-right:10px;
+    overflow:hidden;
+    border-style:solid;
+    padding:10px;
+    border-width: 1px;
+    border-color:#ddd;
+    text-decoration: none;
+  }
+  
+  #iw-container  .iw-title > a {
+   color:#502922;
+   font-size: 22px;
+   font-weight: bold;
+   border-radius: 2px 2px 0 0; /* In accordance with the rounding of the default infowindow corners. */
+  }
+  
+  #iw-container  .iw-content > p {
+    font-size:15px;
+    color:black;
+    margin-bottom: 5px;
+  }
+  .wrapper {
+  height: 100%;
+  width: 100%;
+  display: table;
+  text-align: left;
+  }
+  .wrapper .header {
+    height: 50px;
+    display: table-row;
+  }
+  .wrapper .box {
+    height: 100%;
+    width: 100%;
+    display: table;
+  }
+  .wrapper .box .column {
+    padding-top:80px;
+    display: table-cell;
+  }
+  .wrapper .sidebar {
+  width:25%;
+  }
+  .wrapper .box .footer {
+  height: 30%;
+  display: table-row;
+  }
+  
+  #overlay_image{
+    position: fixed;
+    width: 25%;
+    height: 100%;
+    background: rgba(80, 41, 34, 0.2) url(http://www.megaicons.net/static/img/icons_title/8/178/title/subculture-coffee-icon.png) no-repeat center center;
+    display: block;
+  }
+@media only screen and (max-width: 400px) {
+  #iw-container {
+      width:210px;
+      height:100%;
+      margin: 15px;
+  }
+  
+  #overlay_image{
+    position: fixed;
+    width: 100%;
+    height: 30%;
+    background: rgba(80, 41, 34, 0.2) url(http://www.megaicons.net/static/img/icons_title/8/178/title/subculture-coffee-icon.png) no-repeat center center;
+    display: block;
+  }
+  .wrapper .box .column {
+    display: table-cell;
+  }
+}

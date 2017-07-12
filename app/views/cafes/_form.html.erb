@@ -1,0 +1,518 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<style>
+  .image-picker {
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.image-picker__element {
+  float: left;
+}
+
+.image-picker__element img{
+    border-width:5px;
+    border-color:rgba(0,0,0,0);
+    border-style: solid;
+}
+.image-picker__element--selected img{
+  background-color: #a9a9a9;
+  border-radius: 50px;  
+  border-color: #a9a9a9;
+}
+.form-group > label {
+  margin-bottom:8px;
+}
+.row .col-md-4 > label {
+  margin-bottom:8px;
+}
+.row .col-xs-4 > label {
+  margin-bottom:8px;
+}
+.row .col-md-4 {
+  margin-bottom:15px;
+}
+.row .col-xs-4 {
+  margin-bottom:15px;
+}
+body {
+  background-image: url(http://4.bp.blogspot.com/-4oFuwjekX2w/VdKOLrFDV0I/AAAAAAAAFic/2vGGpPL1Fbc/s1600/coffee-beans.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 500;
+}
+.cw-input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  outline: 0;
+  border: none;
+  background: 0 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: inherit;
+  font-style: inherit;
+  text-decoration: inherit;
+  resize: none;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 60px;
+}
+.cw-icon-label {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #a9a9a9;
+}
+.cw-address label{
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #a9a9a9;
+}
+.cw-label {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #a9a9a9;
+}
+
+.hovicon {
+    display: inline-block;
+    font-size: 45px;
+    line-height: 90px;
+    cursor: pointer;
+    margin: 20px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    text-decoration: none;
+    z-index: 1;
+    color: #a9a9a9;
+}
+.hovicon.small {
+    font-size: 20px;
+    line-height:45px;
+    width:45px;
+    height:45px;
+    margin:7px;
+}
+.hovicon.mini {
+    font-size: 15px;
+    line-height:32px;
+    width:30px;
+    height:30px;
+    margin:7px;
+}
+.hovicon.auto-width {
+    width: auto;
+    height: auto;
+    padding: 15px;
+}
+.hovicon:after {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    content:'';
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.hovicon:before {
+    speak: none;
+    font-size: 48px;
+    line-height: 90px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+}
+.hovicon.effect-1.sub-b:hover {
+    background: rgba(155, 104, 85, 1);
+    color: #4F352B;
+}
+.hovicon.effect-1.sub-b:hover i {
+    color: #4F352B;
+}
+.hovicon.effect-1.sub-b:after {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+.hovicon.effect-1.sub-b:hover:after {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+}
+ .hovicon.effect-1 {
+    background: rgba(169, 169, 169, 0.1);
+    -webkit-transition: background 0.2s, color 0.2s;
+    -moz-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
+}
+.hovicon.effect-1:after {
+    top: -7px;
+    left: -7px;
+    padding: 7px;
+    box-shadow: 0 0 0 4px #9B6855;
+    -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
+    -webkit-transform: scale(.8);
+    -moz-transition: -moz-transform 0.2s, opacity 0.2s;
+    -moz-transform: scale(.8);
+    -ms-transform: scale(.8);
+    transition: transform 0.2s, opacity 0.2s;
+    transform: scale(.8);
+    opacity: 0;
+}
+@import url("http://fonts.googleapis.com/css?family=Lato");
+.select-hidden {
+  display: none;
+  visibility: hidden;
+  padding-right: 10px;
+}
+
+.select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  color: #a9a9a9;
+  width: 220px;
+  height: 40px;
+}
+
+.select-styled {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(169, 169, 169, 0.1);
+  padding: 8px 15px;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+.select-styled:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-color: #a9a9a9 transparent transparent transparent;
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+.select-styled:hover {
+  background-color: #9B6855;
+  color: #4F352B;
+}
+.select-styled:hover:after {
+  border-color: #4F352B transparent transparent transparent;
+}
+.select-styled:active, .select-styled.active {
+  background-color: #9B6855;
+  color: #4F352B;
+}
+.select-styled:active:after, .select-styled.active:after {
+  top: 9px;
+  border-color: transparent transparent #4F352B transparent;
+}
+
+.select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #9B6855;
+  color: #4F352B;
+}
+.select-options li {
+  margin: 0;
+  padding: 12px 0;
+  text-indent: 15px;
+  border-top: 1px solid #5C3E32;
+  -moz-transition: all 0.15s ease-in;
+  -o-transition: all 0.15s ease-in;
+  -webkit-transition: all 0.15s ease-in;
+  transition: all 0.15s ease-in;
+}
+.select-options li:hover {
+  color: #9B6855;
+  background: #4F352B;
+}
+.select-options li[rel="hide"] {
+  display: none;
+}
+.highlight {
+  background: rgba(155, 104, 85, 1) !important;
+  color: #4F352B;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" />
+<div class="container" style="padding-top:90px;">
+  <div class="thumbnail">
+    <div class="margin" style="margin:15px">
+      <div class="cafeinfo" style="margin-bottom:15px;">
+        <!--<img src="/images/coffeebean.svg" style="width:23px; height:23px; margin-right:5px;">-->
+        <!--<h1 style="font-size:30px; display:inline; font-weight:bold">카페 정보</h1>-->
+      </div>
+      <%= form_for(@cafes) do |f| %>
+      <div class="form-group" style="padding:30px;">
+      <%= f.text_field :name, class: "cw-input", placeholder: "카페 이름을 입력해주세요" %>
+      <%= f.text_field :phone, class: "cw-input", placeholder: "카페의 전화번호를 입력해주세요 (000-000-0000)" %>
+      <%= f.text_field :americano, class: "cw-input", placeholder: "카페에서 가장 작은 사이즈의 아메리카노 가격을 입력해주세요 (숫자만 입력해주세요)" %>
+      <%= f.label "아이콘", class: "cw-label" %>
+      <div class="image-picker">
+        <div class="image-picker__element image-picker__element--selected">
+            <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/espresso3.png" height="50" width="50"/>
+          </div>
+        <div class="image-picker__element">
+          <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-ediya.png" height="50" width="50"/>
+        </div>
+        <div class="image-picker__element">
+          <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-tomntoms.png" height="50" width="50"/>
+        </div>
+        <div class="image-picker__element">
+          <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-starbucks.png" height="50" width="50"/>
+        </div>
+        <div class="image-picker__element">
+            <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-coffeebean.png" height="50" width="50"/>
+          </div>
+        <div class="image-picker__element">
+          <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-coffinegurunaru.png" height="50" width="50"/>
+        </div>
+        <div class="image-picker__element">
+          <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-hollys.png" height="50" width="50"/>
+        </div>
+        <div class="image-picker__element">
+          <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-twosomeplace.png" height="50" width="50"/>
+        </div>
+        <div class="image-picker__element">
+          <img class="pic" src="https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/logo-angelinus.png" height="50" width="50"/>
+        </div>
+      </div>
+      <%= f.hidden_field :markericon, id: "icon", value:"https://s3.ap-northeast-2.amazonaws.com/cafewiki/uploads/icons/espresso3.png" %>
+      <%= f.hidden_field :lat, :value => @lat %>
+      <%= f.hidden_field :lng, :value => @lng %>
+      <%= f.hidden_field :address, :value => @address %>
+      <div class="row" style="margin-bottom:50px">
+        <div class="col-md-4 col-xs-4">
+        <%= f.label :매장크기, class: "cw-label" %><br>
+        <%= f.select "size", raw("<option>좁음</option><option>중간</option><option>넓음</option>") %>
+        </div>
+        <div class="col-md-4 col-xs-4">
+        <%= f.label :매장층수, class: "cw-label" %><br>
+        <%= f.select "floor", raw("<option>단층</option><option>복층</option>") %>
+        </div>
+        <div class="col-md-4 col-xs-4">
+        <%= f.label :화장실, class: "cw-label" %><br>
+        <%= f.select "toilet", raw("<option>내부위치</option><option>외부위치</option>") %>
+        </div>
+      </div>
+      <div>
+      <%= f.label :"카페 옵션 (아래 옵션에 해당하면 클릭해주세요)", class: "cw-label" %>
+      <div class="row">
+        <div class="block col-md-4" style="text-align:center">
+            <i class="fa fa-moon-o hovicon effect-1 sub-b" id="allnight"></i>
+            <p class= "cw-label">24시간</p>
+        </div>
+        <div class="block col-md-4" style="text-align:center">
+            <i class="fa fa-car hovicon effect-1 sub-b" id="parking"></i>
+            <p class= "cw-label">주차장</p>
+        </div>
+        <div class="block col-md-4" style="text-align:center">
+            <i class="fa fa-wifi hovicon effect-1 sub-b"></i>
+            <p class= "cw-label">와이파이</p>
+        </div>
+      </div>
+      <!--<%= f.label :주차장, for:"parking", style:"font-weight:bold" %>-->
+      <%= f.hidden_field :parking %>
+      <!--<%= check_box_tag :parking %>-->
+<!--      <%= f.label :"여는 시간" %>
+      <input id="opening" name="opening" class="timepicker">
+      <%= f.label :"닫는 시간" %>
+      <input id="closing" name="closing" class="timepicker"> -->
+      <!--<%= f.label :"24시간", for:"allnight" %> -->
+      <%= f.hidden_field :allnight %>
+      <!--<%= check_box_tag :allnight %> <br>-->
+      <%= f.hidden_field :ip, :value => @remote_ip %>
+      </div>
+      <hr>
+      <%= f.label :"카페 내용 (오픈시간이나 카페분위기 등 카페에 관련된 내용을 자유롭게 입력해주세요)", class: "cw-label" %>
+      <%= f.text_area :content %>
+      <%= f.hidden_field :url, :value => @url %>
+      <%= f.hidden_field :ver, :value => 1 %>
+      <div class="submit_box" align="right" style="margin-top:15px; width:100%">
+        <input type="submit" name="commit" value="제출하기" class="submit ui-button ui-corner-all ui-widget" role="button">
+      </div>
+      <hr>
+      <%= f.hidden_field :name, :name => "name", :value => @cafes.name %>
+      <% end %>
+      <%= @remote_ip %>
+      </div>
+    </div>  
+  </div>
+</div>
+<script>
+  $(document).ready(function(e) {
+    $('.submit').click(function(){
+      window.location.reload(true)
+    });
+  });
+</script>
+
+<script>
+$(document).ready(function() {
+  $('.image-picker__element').click(function(e){
+  $('.image-picker__element--selected').removeClass('image-picker__element--selected');
+  $(e.target).closest('.image-picker__element').addClass('image-picker__element--selected');
+
+  });
+  
+  $(".pic").click(function(event) {
+      document.getElementById("icon").value = event.target.src;
+  });
+  
+  if ($("input[name='cafes[allnight]']").val() === "1") {
+    ($("#allnight").addClass("highlight"))
+  }
+  
+  if ($("input[name='cafes[parking]']").val() === "1") {
+    ($("#parking").addClass("highlight"))
+  }
+  
+  $( ".hovicon" ).click(function() {
+    $( this ).toggleClass( "highlight" );
+    var id = $( this ).attr("id");
+    val = $( "input[name='cafes["+id+"]']" ).val();
+    $( "input[name='cafes["+id+"]']" ).val(val === "1" ? "0" : "1");
+  });
+  // $('.hovicon').on('click', function(){
+  //   $(this).css("background", "rgba(155, 104, 85, 1)");
+  //   $(this).css("color", "#4F352B");
+  // });
+  
+  $('#allnight').on('click',function(){
+    if ($(this).is(':checked'))
+    {
+      // document.getElementById('opening').style.pointerEvents = 'none';
+      // document.getElementById('opening').style.background = 'grey';
+      // document.getElementById('closing').style.pointerEvents = 'none';
+      // document.getElementById('closing').style.background = 'grey';
+      $('#opening').val("");
+      $('#closing').val("");
+    }
+    else
+    {
+      // document.getElementById('opening').style.pointerEvents = 'auto'; 
+      // document.getElementById('opening').style.background = '';
+      // document.getElementById('closing').style.pointerEvents = 'auto'; 
+      // document.getElementById('closing').style.background = '';
+    }
+  });
+
+  $('.timepicker').timepicker({
+    timeFormat: 'HH:mm',
+    interval: 30,
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true
+  });
+  
+  // $( "#parking" ).checkboxradio({
+  //   icon: false
+  // });
+  
+  // $( "#allnight" ).checkboxradio({
+  //   icon: false
+  // });
+  
+  $( ".menu" ).selectmenu();
+    
+  $( ".submit" ).button();
+  
+});
+
+$('select').each(function(){
+    var $this = $(this), numberOfOptions = $(this).children('option').length;
+  
+    $this.addClass('select-hidden'); 
+    $this.wrap('<div class="select"></div>');
+    $this.after('<div class="select-styled"></div>');
+
+    var $styledSelect = $this.next('div.select-styled');
+    $styledSelect.text($this.children('option').eq(0).text());
+  
+    var $list = $('<ul />', {
+        'class': 'select-options'
+    }).insertAfter($styledSelect);
+  
+    for (var i = 0; i < numberOfOptions; i++) {
+        $('<li />', {
+            text: $this.children('option').eq(i).text(),
+            rel: $this.children('option').eq(i).val()
+        }).appendTo($list);
+    }
+  
+    var $listItems = $list.children('li');
+  
+    $styledSelect.click(function(e) {
+        e.stopPropagation();
+        $('div.select-styled.active').not(this).each(function(){
+            $(this).removeClass('active').next('ul.select-options').hide();
+        });
+        $(this).toggleClass('active').next('ul.select-options').toggle();
+    });
+  
+    $listItems.click(function(e) {
+        e.stopPropagation();
+        $styledSelect.text($(this).text()).removeClass('active');
+        $this.val($(this).attr('rel'));
+        $list.hide();
+        //console.log($this.val());
+    });
+  
+    $(document).click(function() {
+        $styledSelect.removeClass('active');
+        $list.hide();
+    });
+
+});
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+<script>
+    // Turn off automatic editor creation first.
+    var cfg1 = { toolbar: 'content' };
+    CKEDITOR.disableAutoInline = true;
+    CKEDITOR.inline( 'cafes[content]', cfg1 );
+    
+    
+</script>

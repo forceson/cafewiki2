@@ -1,0 +1,11 @@
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(//fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
+
+a.cke_dialog_ui_button_ok {
+  background: #4f352b !important;
+  border: 1px solid #4f352b !important; 
+}

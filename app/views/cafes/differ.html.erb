@@ -1,0 +1,166 @@
+<style>
+  .ui-button
+  {
+    background:#ffffff;
+    border-color:#cccccc;
+    border-radius:0px;
+  }
+  
+  .checkbox
+  {
+    display:none;
+  }
+  
+  .diff > p
+  
+  {
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  .diff > ol
+  
+  {
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  del > p
+  {
+    background-color: rgba(255,98,86,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  del > h3
+  {
+    background-color: rgba(255,98,86,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  del > ul
+  {
+    background-color: rgba(255,98,86,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  del > li
+  {
+    background-color: rgba(255,98,86,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  del > ol
+  {
+    background-color: rgba(255,98,86,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  ins > li
+  {
+    background-color: rgba(86,255,157,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  ins > ul
+  {
+    background-color: rgba(86,255,157,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  ins > ol
+  {
+    background-color: rgba(86,255,157,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  ins > h3
+  {
+    background-color: rgba(86,255,157,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+   ins > p
+  {
+    background-color: rgba(86,255,157,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  /*del
+  {
+    background-color: rgba(255,98,86,0.4);
+    margin:5px;
+    padding-left:15px;
+  }
+  
+  del ol
+  {
+    background-color: rgba(255,98,86,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  del p
+  {
+    background-color: rgba(255,98,86,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  ins li, h3
+  {
+    background-color: rgba(86,255,157,0.4);
+    padding:5px;
+    padding-left:15px;
+  }
+  
+  ins p
+  {
+    background-color: rgba(86,255,157,0.4);
+    padding:5px;
+    padding-left:15px;
+  }*/
+</style>
+
+
+<div class="box">
+  <div class="cd-main-content">
+    <div class="container" style="padding-top:20px;">
+      <div class="thumbnail">
+        <div class="margin" style="margin:15px">
+          <div class="cafeinfo" style="margin-bottom:15px;">
+              <div class="controlgroup" style="float:right;">
+                <a href="/home/edit/<%= @cafe.id %>">편집</a>
+                <a href="#" style="border-left:none;">역링크</a>
+              </div>
+            <img src="/images/coffeebean.svg" style="width:23px; height:23px; margin-right:5px;">
+            <a href="/home/cafe/<%= @cafe.id %>" style="font-size:30px; display:inline; font-weight:bold; text-decoration:none; color:black"><%= @cafe.name %></a><p style="font-size:30px; display:inline; font-weight:bold; text-decoration:none; color:black"> (버전 비교)</p>
+            
+            <h3 style="margin-top:15px"><%= @cafe.address %></h3>
+          </div>
+          <hr>
+          <div class="basicinfo">
+            <div class="container" style="width:100%">
+              <div class="diff" style="border-style:solid; border-color:black; border-width:1px; border-radius:2px">
+                <h2 style="font-size:20px; padding:10px; padding-left:15px; background-color:rgba(248,248,248,0.3); border-bottom:solid; border-width:1px;">Version<%= @old_ver %>과 Version<%= @new_ver %>의 비교</h2>
+                <%= raw @diff %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // $(".controlgroup").controlgroup();
+</script>
